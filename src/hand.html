@@ -1,0 +1,100 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
+<meta name="format-detection" content="telephone=no"/>
+<meta name="format-detection" content="address=no"/>
+<meta  name="keywords" content="飞流游戏,FL Mobile,iOS游戏,Android游戏">
+<meta name="description" content="飞流游戏,FL Mobile,iOS游戏,Android游戏">
+<title>拼手气猜大奖</title>
+<link rel="stylesheet" type="text/css" href="css/css.css">
+</head>
+<body>
+<div class="position_r">
+    <div class="show_1 fz60 color04" >猜猜大奖在谁手上！</div>
+    <div class="show_2 color04" style="display:none">
+        <p class="fz60"><strong>&nbsp;&nbsp;&nbsp;&nbsp;恭喜您！</strong></p>
+        <p class="fz36">&nbsp;&nbsp;&nbsp;&nbsp;猜对了，打开看看吧</p>
+        <div class="present"><a href="" class="link2"><img src="images/none.gif" id="prelist"></a></div>
+        
+    </div>
+    <div class="show_3 color04" style="display:none" >
+        <p class="fz60"><strong>&nbsp;&nbsp;&nbsp;&nbsp;很遗憾！</strong></p>
+        <p class="fz36">&nbsp;&nbsp;&nbsp;&nbsp;您没有猜对，再接再厉</p>
+        <a href="main.html" class="link2"><div class="back fz32 color02 boderadius50">返回首页</div></a>
+    </div>
+</div>
+<div id="bg">
+<div class="wrap">
+    <div class="h1 hand"><img src="images/hand/hand1.png" class="shake"></div>
+    <div class="h2 hand"><img src="images/hand/hand2.png" class="shake"></div>
+</div>
+<div style="clear:both"></div>
+<div class="wrap">
+    <div class="h3 hand"><img src="images/hand/hand3.png" class="shake"></div>
+    <div class="h4 hand"><img src="images/hand/hand4.png" class="shake"></div>
+</div>
+<div style="clear:both"></div>
+<div class="wrap position_r">
+  <div class="hand_w">
+        <div class="h5 hand"><img src="images/hand/hand5.png" class="shake"></div>
+        <div class="h6 hand"><img src="images/hand/hand6.png" class="shake3"></div>
+        <div style="clear:both"></div>
+        <div class="h7 hand"><img src="images/hand/hand7.png" class="shake1"></div>
+        <div class="h8 hand"><img src="images/hand/hand8.png" class="shake2"></div>
+    </div>
+</div>
+</div>
+<script type="text/javascript" src="js/zepto.min.js"></script>
+<script>
+var handClick=$(".hand");
+$.each(handClick,function(index){
+	$(this).click(function(){
+		
+			if(eachHand()<1){//判断是否可点击
+				var num=parseInt(8*Math.random());//随机出现礼品
+				var imgUrl=$(this).html();
+				var showNum=index+1;
+				if( imgUrl.indexOf(num)>0){//中奖
+					var sTr="images/hand/hand"+showNum+"_pre"+".png";
+					$(this).find("img").attr("src",sTr);
+					$(".show_1").hide();
+					$(".show_3").hide();
+					successBg();
+					$(".show_2").show();
+					}
+				else{//未中奖
+					var sTr="images/hand/hand"+showNum+"_none"+".png";
+					var sTr1="images/hand/hand"+num+"_pre"+".png";
+					$(this).find("img").attr("src",sTr);
+					$(".h"+num).find("img").attr("src",sTr1);
+					$(".show_1").hide();
+					$(".show_2").hide();
+					$(".show_3").show();
+					
+					
+					}
+				}
+		})
+		
+	});
+
+function successBg(){//中奖效果弹出
+	$("#bg").addClass("bg");
+	$(".bg").height($(window).height());
+	}	
+function eachHand(){//判断是否抽过奖了
+	var n=0;
+	for(var i=0; i<handClick.length; i++){
+		var imgUrl=handClick.eq(i).html();
+		if(imgUrl.indexOf("pre")>0 || imgUrl.indexOf("none")>0 ){
+			n++;
+			}
+	}
+	return n;
+}
+
+</script>
+</body>
+</html>
